@@ -9,4 +9,25 @@
     <welcome-file>default.jsp</welcome-file>
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
+  
+  <servlet>
+  	<servlet-name>example3</servlet-name>
+  	<servlet-class>day01.Example3</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  <servlet-name>example3</servlet-name>
+  <url-pattern>/day01/example3</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>task3</servlet-name>
+  	<servlet-class>day01.Task3</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>task3</servlet-name>
+  	<url-pattern>/day01/task3</url-pattern>
+  </servlet-mapping>
+  
 </web-app>
