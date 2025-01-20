@@ -17,4 +17,4 @@ public class Task1 extends HttpServlet {
 	}
 	
 }
-// 192.168.40.11
+// 192.168.40.30

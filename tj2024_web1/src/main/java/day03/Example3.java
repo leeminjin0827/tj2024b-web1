@@ -31,6 +31,8 @@ public class Example3 extends HttpServlet {
 	} // f end
 
 	@Override
+	// HTTP PUT BODY : http://localhost:8080/day03/example3
+	// content.type : application/json , body : { "data1" : "유재석" , "data2" : "40" }
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println( "[HTTP *PUT 방식으로 요청이 왔어요");
 		ObjectMapper mapper = new ObjectMapper();
