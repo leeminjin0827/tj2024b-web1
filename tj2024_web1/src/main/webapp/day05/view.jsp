@@ -24,7 +24,7 @@
 		<br/>
 		<div class="etcbtns">
 			<button onclick="boardDelete()">삭제</button>
-			<button onclick="boardUpdate()">수정</button>
+			<button onclick="location.href='/tj2024_web1/day05/update.jsp'">수정</button>
 		</div>
 	</div>
 	

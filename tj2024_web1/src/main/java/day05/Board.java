@@ -48,6 +48,7 @@ public class Board extends HttpServlet{
 		ObjectMapper mapper = new ObjectMapper();
 		BoardDto boardDto = mapper.readValue( req.getReader(), BoardDto.class);
 		// DAO 처리
+		System.out.println("받은데이터 : " + boardDto);
 		boolean result = BoardDao.getinstance().update( boardDto );
 		// DAO 결과를 HTTP HEADER BODY로 보내기
 		resp.setContentType("application/json");

@@ -1,11 +1,14 @@
 // 게시글 수정
-const boardUpdate = ( bno ) => {
+const boardUpdate = ( ) => {
+	let bno = new URL( location.href ).searchParams.get('bno');
+	console.log( bno );
 	// 수정할 식별자
 	// fetch 이용한 서블릿에게 HTTP update METHOD 처리 요청
-	let newTitle = document.querySelector('.newT');
-	let newContent = document.querySelector('newC');
+	let newTitle = document.querySelector('.newT').value;
+	let newContent = document.querySelector('.newC').value;
 	// 객체화
-	let dataObj = { bno : bno , title : newTitle , content : newContent }
+	let dataObj = { bno : bno , btitle : newTitle , bcontent : newContent }
+	console.log("보낼데이터",dataObj)
 	// fetch 이용한 서블릿에게 METHOD 처리 요청 , BODY
 	const option = {
 		method : 'PUT',

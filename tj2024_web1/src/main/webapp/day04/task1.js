@@ -22,7 +22,7 @@ const visitWrite = ( ) => {
 		.then( r => r.json() )	// - 응답받은 body 자료를 json 타입으로 변환
 		.then( data => { // - 변환된 body 자료
 			// 5. 결과에 따른 화면 구현
-			if( data == true ){ alert(`등록성공`); visitFindAdd(); } // 만약에 받은 자료가 true 이면 성공
+			if( data == true ){ alert(`등록성공`); visitFindAll(); } // 만약에 받은 자료가 true 이면 성공
 			else{ alert(`등록실패`); }
 		}) // then2 end
 		.catch( e => { console.log( e ); } )
