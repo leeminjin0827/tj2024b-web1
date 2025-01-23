@@ -24,7 +24,10 @@ const boardWrite = () => {
 		.then( r => r.json() )
 		.then( data => {
 			// 결과에 따른 화면 구현
-			if( data == true ) { alert('게시물 등록 성공'); boardFindAll(); }
+			if( data == true ) { 
+				alert('게시물 등록 성공');
+				location.href='board.jsp';
+			 }
 			else{ alert('게시물 등록 실패 ㅋㅋ'); }
 		}) // then2 end
 		.catch( e => { console.log( e ); } )

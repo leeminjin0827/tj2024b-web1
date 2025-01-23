@@ -48,7 +48,6 @@ public class Board extends HttpServlet{
 		ObjectMapper mapper = new ObjectMapper();
 		BoardDto boardDto = mapper.readValue( req.getReader(), BoardDto.class);
 		// DAO 처리
-		System.out.println("받은데이터 : " + boardDto);
 		boolean result = BoardDao.getinstance().update( boardDto );
 		// DAO 결과를 HTTP HEADER BODY로 보내기
 		resp.setContentType("application/json");
@@ -59,7 +58,7 @@ public class Board extends HttpServlet{
 	// 삭제
 	@Override
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// HTTP로 부터 요청 받은 HTTP HEADER BODY를 DTO로 변환
+		// 쿼리스트링 매개변수 가져오기
 		int bno = Integer.parseInt( req.getParameter("bno") );
 		// DAO 처리
 		boolean result = BoardDao.getinstance().delete( bno );
