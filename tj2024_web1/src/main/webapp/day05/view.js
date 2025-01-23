@@ -17,6 +17,7 @@ const boardfindEach = ( ) => {
 			document.querySelector('.bcbox').innerHTML = `${ data.bcontent }`
 			// - 다른  함수에서 게시물 정보를 이용하기 위해 게시물정보를 전역변수로 이동
 			boardInfo = data;
+			console.log(data);
 		})
 		.catch( error => { console.log( error ); } )
 		

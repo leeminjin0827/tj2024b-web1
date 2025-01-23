@@ -1,4 +1,3 @@
-
 // [ 수정 하기 전 정보 조회] 게시글 개별 조회 
 const boardfindEach = ( ) => {
 	let bno = new URL( location.href ).searchParams.get('bno');
