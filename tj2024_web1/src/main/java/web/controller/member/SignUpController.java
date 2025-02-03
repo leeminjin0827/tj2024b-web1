@@ -9,7 +9,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+//import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -28,6 +28,7 @@ public class SignUpController extends HttpServlet{
 		System.out.println("signup post ok");
 		// 1. 업로드 경로 가져오기
 		String uploadPath = req.getServletContext().getRealPath("/upload");
+		System.out.println( uploadPath );
 		// 2. 만일 해당 경로가 없으면 만들어주기.
 		File file = new File(uploadPath);
 		if( file.exists() ) {} // 경로가 존재하면 아무것도 안함.
