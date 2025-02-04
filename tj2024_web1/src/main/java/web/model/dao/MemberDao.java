@@ -3,10 +3,12 @@ package web.model.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import web.model.dto.MemberDto;
+import web.model.dto.PointDto;
 
 // @Getter // 클래스내 모든 멤버변수에 getter 적용.
 @NoArgsConstructor( access = lombok.AccessLevel.PRIVATE ) // 클래스내 디폴트생성자를 private 적용
@@ -121,6 +123,32 @@ public class MemberDao extends Dao {
 			if( count == 1 ) { return true; } // 수정 성공 했을때.
 		}catch (SQLException e) {		System.out.println( e ); }
 		return false; // 수정 실패 했을때.
+	} // f end
+	
+	// [6] 포인트 로그 내역 전체 조회 SQL 처리 메소드
+	public ArrayList<PointDto> allInfo ( int loginMno ) {
+		ArrayList<PointDto> list = new ArrayList<PointDto>();
+		try {
+			String sql = "select * from point where mno = ?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, loginMno);
+			ResultSet rs = ps.executeQuery();
+			while( rs.next() ) {
+				PointDto pointDto = new PointDto();
+				pointDto.setPno( rs.getInt("pno") );
+				pointDto.setPdetail( rs.getString("pdetail") );
+				pointDto.setMpoint( rs.getInt("mpoint") );
+				pointDto.setPdate( rs.getString("pdate") );
+				pointDto.setMno( rs.getInt("mno") );
+				list.add(pointDto);
+			}
+		}catch( SQLException e ) { System.out.println( e ); }
+		return list;
+	} // f end
+	
+	// [7] 현재 남은 포인트 조회 SQL 처리 메소드
+	public PointDto myPoint( int loginMno ) {
+		
 	} // f end
 	
 } // c end

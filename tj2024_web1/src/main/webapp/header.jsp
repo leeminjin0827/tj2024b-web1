@@ -29,6 +29,7 @@
 	      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 			<!-- 메뉴 항목 -->	      
 	        <li class="nav-item"> <a class="nav-link" href="#">게시판</a> </li>
+	        <!--  드롭다운 -->
 	        <li class="nav-item dropdown">
 	          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 	            제품
@@ -42,7 +43,7 @@
 	        </li>
 	      </ul>
 		  <!-- 오른쪽메뉴 목록 -->
-		  <ul class="navbar-nav me-end mb-2 mb-lg-0 loginmenu"> <!--  me-end : 오른쪽 정렬 -->
+		  <ul class="navbar-nav me-end mb-2 mb-lg-0 loginmenu ll"> <!--  me-end : 오른쪽 정렬 -->
 		  		
 		  </ul>
 
