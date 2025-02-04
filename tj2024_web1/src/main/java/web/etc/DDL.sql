@@ -16,10 +16,31 @@ create table member(
     mimg varchar(255) default 'default.jpg' , 
     constraint primary key( mno )
 ); # table end 
+
+# 포인트 테이블
+create table point(
+	pno int unsigned auto_increment ,
+	pdetail varchar(30) not null ,
+    mpoint int default 100 ,
+    pdate datetime default now() ,
+    mno int unsigned ,
+    constraint primary key(pno),
+    constraint foreign key(pno) references member (mno) on update cascade on delete cascade
+);
+
 # [1] 회원테이블 샘플 레코드 삽입
 insert into member ( mid , mpwd , mname , mphone ) values( 'qwe123' , 'a123456' , '유재석' ,  '010-3333-3333' );
 insert into member ( mid , mpwd , mname , mphone ) values( 'asd123' , 'b123456' , '강호동' ,  '010-4444-4444' );
 insert into member ( mid , mpwd , mname , mphone ) values( 'zxc123' , 'c123456' , '신동엽' ,  '010-5555-5555' );
 insert into member ( mid , mpwd , mname , mphone ) values( 'vbn123' , 'd123456' , '서장훈' ,  '010-6666-6666' );
 insert into member ( mid , mpwd , mname , mphone ) values( 'rty123' , 'e123456' , '하하'   ,  '010-7777-7777' );
+
+#[2] 포인트테이블 샘플 레코드
+insert into point ( pdetail , mpoint , mno) values( '회원가입' , 100 ,1);
+insert into point ( pdetail , mpoint , mno) values( '로그인' , 1 ,1);
+insert into point ( pdetail , mpoint , mno) values( '로그인' , 1 ,1);
+insert into point ( pdetail , mpoint , mno) values( '로그인' , 1 ,1);
+
 select * from member;
+select * from point;
+select * from point where mno = 1;
