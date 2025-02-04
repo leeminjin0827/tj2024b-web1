@@ -21,7 +21,7 @@ create table member(
 create table point(
 	pno int unsigned auto_increment ,
 	pdetail varchar(30) not null ,
-    mpoint int default 100 ,
+    ppoint int default 100 ,
     pdate datetime default now() ,
     mno int unsigned ,
     constraint primary key(pno),

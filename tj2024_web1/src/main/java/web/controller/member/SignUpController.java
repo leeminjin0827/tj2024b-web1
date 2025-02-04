@@ -18,6 +18,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import web.model.dao.MemberDao;
 import web.model.dto.MemberDto;
+import web.model.dto.PointDto;
 
 @WebServlet("/member/signup")
 public class SignUpController extends HttpServlet{
@@ -70,7 +71,17 @@ public class SignUpController extends HttpServlet{
 		System.out.println( memberDto );
 		
 		// 12.
-		boolean result = MemberDao.getInstance().signup(memberDto);
+		int mno = MemberDao.getInstance().signup(memberDto);
+		boolean result = false;
+		if( mno > 0 ) {
+			// 가입 성공시 포인트 지급
+			PointDto pointDto = new PointDto();
+			pointDto.setMno(mno);
+			pointDto.setPdetail("회원가입 포인트");
+			pointDto.setPpoint(100);
+			MemberDao.getInstance().setPoint(pointDto);
+			result = true;
+		}
 		// 13.
 		resp.setContentType("application/json");
 		resp.getWriter().print( result );

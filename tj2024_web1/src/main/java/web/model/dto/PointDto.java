@@ -14,7 +14,7 @@ public class PointDto {
 	
 	private int pno;
 	private String pdetail;
-	private int mpoint;
+	private int ppoint;
 	private String pdate;
 	private int mno;
 	

@@ -3,6 +3,7 @@ package web.model.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import lombok.Getter;
@@ -29,12 +30,12 @@ public class MemberDao extends Dao {
 	// public static MemberDao getInstance () { return instance; }
 	
 	// [1] 회원가입 SQL 처리 메소드 
-	public boolean signup( MemberDto memberDto ) {
+	public int signup( MemberDto memberDto ) {
 		try {
 			// [1] SQL 작성한다.
 			String sql ="insert into member( mid , mpwd , mname , mphone , mimg ) values( ? , ? , ? , ? , ? )";
 			// [2] DB와 연동된 곳에 SQL 기재한다. 		
-			PreparedStatement ps = conn.prepareStatement(sql);
+			PreparedStatement ps = conn.prepareStatement(sql , Statement.RETURN_GENERATED_KEYS );
 			ps.setString( 1 , memberDto.getMid() );
 			ps.setString( 2 , memberDto.getMpwd() );
 			ps.setString( 3 , memberDto.getMname() );
@@ -43,9 +44,15 @@ public class MemberDao extends Dao {
 			// [3] 기재된 SQL를 실행하고 결과를 받는다.	
 			int count = ps.executeUpdate();
 			// [4] 결과에 따른 처리 및 반환를 한다.
-			if( count == 1 ) { return true; }
+			if( count == 1 ) { 
+				ResultSet rs = ps.getGeneratedKeys();
+				if( rs.next() ) {
+					int mno = rs.getInt(1);
+					return mno; // 회원가입 성공 후 등록한 회원번호 반환
+				}
+			}
 		}catch( SQLException e ) { System.out.println( e ); }
-		return false;
+		return 0; // 실패시 0반환
 	} // f end
 	
 	// [2]. 로그인 SQL 처리 메소드
@@ -137,7 +144,7 @@ public class MemberDao extends Dao {
 				PointDto pointDto = new PointDto();
 				pointDto.setPno( rs.getInt("pno") );
 				pointDto.setPdetail( rs.getString("pdetail") );
-				pointDto.setMpoint( rs.getInt("mpoint") );
+				pointDto.setPpoint( rs.getInt("ppoint") );
 				pointDto.setPdate( rs.getString("pdate") );
 				pointDto.setMno( rs.getInt("mno") );
 				list.add(pointDto);
@@ -147,8 +154,31 @@ public class MemberDao extends Dao {
 	} // f end
 	
 	// [7] 현재 남은 포인트 조회 SQL 처리 메소드
-	public PointDto myPoint( int loginMno ) {
-		
+	public int myPoint( int loginMno ) {
+		try {
+			String sql = "select sum(ppoint) as mpoint from point where mno = ?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, loginMno);
+			ResultSet rs = ps.executeQuery();
+			if( rs.next() ) { return rs.getInt("mpoint"); }
+		}catch( SQLException e ) { System.out.println( e ); }
+		return -1;
 	} // f end
 	
+	// [8] 
+	public boolean setPoint( PointDto pointDto ) {
+		try {
+			// SQL 작성
+			String sql = "insert into pointlog( pocomment , pocount , mno ) values( ? , ? , ? )";
+			// DB와 연동된 곳에 SQL 기재
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, pointDto.getPdetail() );
+			ps.setInt(2,  pointDto.getPpoint() );
+			ps.setInt(3, pointDto.getMno() );
+			// SQL 실행하고 결과받기
+			int count = ps.executeUpdate();
+			if( count == 1 ) return true;
+		}catch( SQLException e ) { System.out.println( e ); }
+		return false;
+	}
 } // c end
