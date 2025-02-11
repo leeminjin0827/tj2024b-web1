@@ -4,6 +4,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,8 +36,20 @@ public class BoardDao extends Dao{
 		return false;
 	} // f end
 	
+	// [2-2] 게시물의 전체 개수 조회 SQL 메소드
+	public int getTotalSize( int cno ) {
+		try {
+			String sql = "select count(*) from board where cno = ?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, cno);
+			ResultSet rs = ps.executeQuery();
+			if( rs.next() ) { return rs.getInt( 1 ); }
+		}catch( Exception e ) { System.out.println( e ); }
+		return 0;
+	} // f end
+	
 	// [2] 게시물 전체 조회 SQL 메소드
-	public ArrayList<BoardDto> findAll ( int cno ) {
+	public ArrayList<BoardDto> findAll ( int cno , int startRow , int display ) {
 		ArrayList<BoardDto> list = new ArrayList<BoardDto>();
 		try {
 			// 게시물 전체조회
@@ -44,10 +59,11 @@ public class BoardDao extends Dao{
 			// 정렬 : order by 필드명 desc=내림차순 , asc=오름차순
 			// + 카테고리별 출력 , 조건추가
 			String sql = " select * from board b inner join member m on b.mno = m.mno "
-					+ " where cno = ? "
-					+ "order by b.bno desc";
+					+ " where b.cno = ? order by b.bno desc limit ? , ? ";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt( 1 , cno );
+			ps.setInt( 2 , startRow );
+			ps.setInt( 3 , display );
 			ResultSet rs = ps.executeQuery();
 			while( rs.next() ) {
 				BoardDto boardDto = new BoardDto();
@@ -121,6 +137,43 @@ public class BoardDao extends Dao{
 			}
 		}catch( SQLException e ) { System.out.println( e ); }
 		return null;
+	} // f end
+	
+	// [6] 댓글 쓰기 SQL 메소드
+	public boolean replyWrite( Map<String, String> map ) {
+		try {
+			String sql = "insert into reply ( rcontent , bno , mno ) value( ? , ? , ? )";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, map.get("rcontent") );
+			ps.setString(2, map.get("bno") );
+			ps.setString(3, map.get("mno") );
+			int count = ps.executeUpdate();
+			if( count == 1 ) { return true; }
+		}catch( Exception e ) { System.out.println( e ); }
+		return false;
+	} // f end
+	
+	// [7] 특정한 게시물의 댓글 조회 SQL 메소드
+	public List<Map<String, String> > replyFindAll( int bno ) {
+		List<Map<String,String>> list = new ArrayList<>();
+		try {
+			// - reply 댓글 테이블 과 member 회원 테이블을 조인 , 이유 : 게시물의 mno 를 이용하여 회원의 mid 와 mimg 조회/참조 하기 위해서
+			String sql = "select * from reply r inner join member m on r.mno = m.mno where r.bno = ? ";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, bno);
+			ResultSet rs = ps.executeQuery();
+			while( rs.next() ) {
+				Map<String,String> map = new HashMap<>();
+				map.put( "rno" , rs.getString("rno") );
+				map.put( "rcontent" , rs.getString("rcontent") );
+				map.put( "rdate" , rs.getString("rdate") );
+				map.put( "mid" , rs.getString("mid") );
+				map.put( "mno" , rs.getString("mno") );
+				map.put( "mimg", rs.getString("mimg") );
+				list.add(map);
+			}
+		}catch( Exception e ) { System.out.println( e ); }
+		return list;
 	} // f end
 	
 } // c end

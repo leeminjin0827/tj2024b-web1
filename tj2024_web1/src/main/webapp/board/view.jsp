@@ -23,6 +23,15 @@
 		</div> <br/><br/>
 		
 		<div class="contentbox"> 본문이 들어갈 구역 </div>
+		
+		<div>
+			<textarea class="rcontentinput from-control"></textarea> <!-- form-control : 부트스트링 css -->
+			<button onclick="onReplyWrite()" type="button" class="btn btn-primary"> 댓글 게시 </button>
+		</div>
+		
+		<div class="replybox mt-5">
+			
+		</div>
 	
 	</div>
 

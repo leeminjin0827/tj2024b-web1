@@ -44,6 +44,18 @@
 	        </form>
 	        
 	      </div>
+	      <div class="col-md-10 mx-auto col-lg-5">
+	      	<table>
+	      		<thead>
+	      			<tr>
+						<th>#</th><th>내역</th><th>수량</th><th>변경일</th>	      			
+	      			</tr>
+	      		</thead>
+	      		<tbody>
+	      			
+	      		</tbody>
+	      	</table>
+	      </div>
 	    </div>
 	  </div>	
 	
