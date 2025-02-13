@@ -9,7 +9,7 @@ const getLoginInfo = ( ) => {
 	
 	let loginmenu = document.querySelector('.loginmenu'); // 로그인 메뉴를 출력할 구역 가져오기
 	
-	let html = ''; // (2) hmtl 변수 선언
+	let html = ''; // (2) html 변수 선언
 	
 	fetch( `/tj2024_web1/member/info` , option )
 	.then( response => response.json() )
@@ -48,4 +48,23 @@ const onLogOut = ( ) => {
 			}
 		})
 		.catch( error => { console.log( error ); } )
+} // f end
+
+// [3] 서버 소켓 요청 함수
+const toastSocket = new WebSocket('ws://localhost:8080/tj2024_web1/toastsocket');
+
+toastSocket.onmessage = ( msgEvent ) => {
+	console.log( msgEvent.data ); // 알람 메시지를 alert 띄우기
+	// 부트스트랩을 이용한 '부트스트랩의 토스트'
+	// 어디에
+	const toastbox = document.querySelector('.toastbox');
+	// 무엇을
+	let html = `<div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+	  				<div class="toast-header">
+	    				<strong class="me-auto">${ msgEvent.data }</strong>
+	    				<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+	  				</div>
+				</div>`;
+	// 출력
+	toastbox.innerHTML = html;
 } // f end

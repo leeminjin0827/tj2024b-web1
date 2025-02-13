@@ -52,10 +52,13 @@
 		  <ul class="navbar-nav me-end mb-2 mb-lg-0 loginmenu ll"> <!--  me-end : 오른쪽 정렬 -->
 		  		
 		  </ul>
-
+	
 	    </div>
 	  </div>
 	</nav>
+	<div class="toastbox" style=" position : fixed; bottom: 10px; left: 10px; ">
+	
+	</div>
 
 	<!--  부트스트랩 JS -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

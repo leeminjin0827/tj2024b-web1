@@ -53,7 +53,7 @@ const onUpdate = ( ) => {
 } // f end
 
 // [4] 내 포인트 내역 조회 요청
-const getPointLog = ( ) => {
+/* const getPointLog = ( ) => {
 	// fetch 옵션
 	const option = { method : 'GET' }
 	// fetch 실행
@@ -77,7 +77,7 @@ const getPointLog = ( ) => {
 			}
 		.catch( error => { console.log( error ); } )
 } // f end
-getPointLog(); // 최초 실행
+getPointLog(); // 최초 실행 */
 
 
 
